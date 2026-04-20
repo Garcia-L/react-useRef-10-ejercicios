@@ -35,4 +35,4 @@ Cada ejercicio está diseñado para resolver un problema específico y aumentar 
 
 ## 👨‍💻 Autor
 
-Proyecto desarrollado como práctica intensiva de React Hooks.
+Luis García
