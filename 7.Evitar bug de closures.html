@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evitar bug de closures</title>
+
+    <!-- CDN de libreria de react  -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- CDN de libreria de react dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- CDN de libreria de babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <header>
+    </header>
+
+
+    <main>
+        <!-- contenedor donde se renderiza (O pinta) la web o aplicación -->
+        <div id="root"></div>
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+
+        const App = () => {
+              const [contador, setContador] = useState(0);
+          
+              const contadorRef = useRef(contador);
+              const tiempoRef = useRef(null);
+          
+              useEffect(
+                () => {
+                  contadorRef.current = contador;
+                }, []
+              );
+
+              const iniciar = () => {
+                if (tiempoRef.current) return
+                
+                tiempoRef.current = setInterval(
+                  ()=> {
+                    setContador(prev => prev +1);
+                    console.log("Ref,", contadorRef.current)
+                  }, 1000
+                );
+              }
+
+              const detener = ()=> {
+                  clearInterval( tiempoRef.current );
+                  tiempoRef.current = null;
+              }
+          
+            return (
+                <div className="">
+                    <h1>Evitar bug de closures</h1>
+                    <p>Crea un intervalo y guarda el valor actualizandolo en un ref, puedes usar useEffect y useState</p>
+                   
+                    <p>Contador: {contador}</p>
+                    <button onClick={iniciar}>Iniciar</button>
+                    <button onClick={detener}>Detener</button>
+                    <hr/>
+                   <p>Revisa en consola, observa como se actualiza ref con cada render</p>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />)
+
+    </script>
+
+</body>
+
+</html>

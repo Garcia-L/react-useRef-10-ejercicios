@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input controlado con useRef</title>
+
+    <!-- CDN de libreria de react  -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- CDN de libreria de react dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- CDN de libreria de babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <header>
+    </header>
+
+
+    <main>
+        <!-- contenedor donde se renderiza (O pinta) la web o aplicación -->
+        <div id="root"></div>
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const App = () => {
+          const [inputState, setInputState] = useState("");
+          const [inputRef, setInputRef] = useState("");
+          
+          const textRef = useRef("");
+          
+          const manejarState = (e)=> {
+            setInputState( e.target.value );
+          };
+
+          const leerInput = ()=> {
+            setInputRef(textRef.current.value);
+          };
+
+            return (
+                <div>
+                    <h1>Input controlado con useState y useRef</h1>
+                    <p>Construye:</p>
+                    <ul>
+                      <li>Input, guarda el texto  en un useState, imprime el texto en pantalla</li>
+                      
+                      <li>Input y un botón, controla con un clic y controla el texto con useRef, guarda el valor en un useState, finalmente imprime el texto en pantalla</li>
+                    </ul>
+                  
+                    <div>
+                      <label>Input con useState</label>
+                      <input type="text" onChange={manejarState}/>
+                      <p>Render con useState {inputState}</p>
+                      
+                      <label>Input con useRef</label>
+                      <input type="text" ref={textRef} />
+                      <button onClick={leerInput}>Leer input</button>
+                      <p>Render con useRef {inputRef} </p>
+                    </div>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />)
+
+    </script>
+
+</body>
+
+</html>

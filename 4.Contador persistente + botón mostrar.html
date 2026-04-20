@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador persistente + botón mostrar</title>
+
+    <!-- CDN de libreria de react  -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- CDN de libreria de react dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- CDN de libreria de babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <header>
+    </header>
+
+
+    <main>
+        <!-- contenedor donde se renderiza (O pinta) la web o aplicación -->
+        <div id="root"></div>
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script type="text/babel">
+        const { useState, useRef } = React;
+
+        const App = () => {
+            const [contador, setContador] = useState(0);
+            const contadorRef = useRef(0);
+            const sumar = () => {
+              contadorRef.current++;           console.log(contadorRef.current)
+            }
+          
+            const mostrarContador = ()=>{            setContador(contadorRef.current); 
+            }
+
+            return (
+                <div className="">
+                    <h1>Incremento persistente + botón mostrar</h1>
+                    <p>{contador}</p>
+                    <button onClick={sumar}>+</button>
+                    <button onClick={mostrarContador}>Mostrar</button>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />)
+
+    </script>
+
+</body>
+
+</html>

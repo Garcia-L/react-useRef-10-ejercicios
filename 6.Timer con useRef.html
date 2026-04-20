@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guarda ID de Timer en useRef</title>
+
+    <!-- CDN de libreria de react  -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- CDN de libreria de react dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- CDN de libreria de babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <header>
+    </header>
+
+
+    <main>
+        <!-- contenedor donde se renderiza (O pinta) la web o aplicación -->
+        <div id="root"></div>
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script type="text/babel">
+        const { useRef } = React;
+
+        const App = () => {
+            const timerRef = useRef(null);
+          
+            const iniciar = ()=> {
+            if (timerRef.current) return;
+            // la referencia será el ID del intervalo creado y mostrara en consola cada segundo, Id: número 
+            timerRef.current = setInterval( ()=> {
+                      console.log("ID", timerRef.current)
+                  },1000
+                );
+            }
+
+            const detener = ()=> {
+                clearInterval(timerRef.current);
+                timerRef.current = null; 
+            }
+          
+            return (
+                <div className="">
+                    <h1>Guarda el ID del timer con useRef</h1>
+                    <p>Inicia un invertalo y guarda su ID</p>
+                    <button onClick={iniciar}>Iniciar</button>
+                    <button onClick={detener}>Detener</button>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />)
+
+    </script>
+
+</body>
+
+</html>
